@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="description" content="GeeksException" />
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<link href='../../css/normalize.css' th:href="@{/css/normalize.css}" rel='stylesheet' type='text/css' />
+	<link href='../../css/style.css' th:href="@{/css/style.css}" rel='stylesheet' type='text/css' />
+	<!--[if IE]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<header th:fragment="header">
+		<nav>
+			<ul>
+				<li><div class="webapp-title" th:text="#{webapp.title}">&nbsp;GeeksException</div></li>
+				<li><a id="home" href="home.html" th:href="@{/}" th:class="${#strings.endsWith(#httpServletRequest.getRequestURI(), '/')} ? 'selected' : ''"><div id="home_icon"><span th:text="#{home.text}" class="menuTitle">Home</span></div></a></li>
+				<li><a id="whatwedo" href="whatwedo.html" th:href="@{/whatwedo}" th:class="${#strings.endsWith(#httpServletRequest.getRequestURI(), 'whatwedo')} ? 'selected' : ''"><div id="whatwedo_icon"><span th:text="#{whatwedo.text}" class="menuTitle">What we do</span></div></a></li>
+				<li><a id="portfolio" href="portfolio.html" th:href="@{/portfolio}" th:class="${#strings.endsWith(#httpServletRequest.getRequestURI(), 'portfolio')} ? 'selected' : ''"><div id="portfolio_icon"><span th:text="#{portfolio.text}" class="menuTitle">Portfolio</span></div></a></li>
+				<li><a id="aboutus" href="about.html" th:href="@{/about}" th:class="${#strings.endsWith(#httpServletRequest.getRequestURI(), 'about')} ? 'selected' : ''"><div id="about_icon"><span th:text="#{about.text}" class="menuTitle">About Us</span></div></a></li>
+				<li><a id="contact" href="contact.html" th:href="@{/contact}" th:class="${#strings.endsWith(#httpServletRequest.getRequestURI(), 'contact')} ? 'selected' : ''"><div id="contact_icon"><span th:text="#{contact.text}" class="menuTitle">Contact</span></div></a></li>
+		    </ul>
+		</nav>
+	</header>
+	
+	<footer th:fragment="footer">
+		<div class="site-footer">
+			<ul class="site-footer-links right">
+			  <!--<li><a href="#">Status</a></li>-->
+			</ul>
+			
+			<a href="#" th:href="@{/}"><div class="small-icon"></div></a>
+		
+			<ul class="site-footer-links">
+				<li th:text="#{copyright.text}">&copy; 2014 GeeksException, inc.</li>
+				<!--<li><a href="#">Terms</a></li>-->
+			</ul>
+		</div>
+	</footer>
+</body>
+</html>
