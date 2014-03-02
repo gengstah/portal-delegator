@@ -15,7 +15,7 @@ spring-test/test-output/
 .gradle
 build
 target
-.classpath*
+.classpath
 .project
 argfile*
 
