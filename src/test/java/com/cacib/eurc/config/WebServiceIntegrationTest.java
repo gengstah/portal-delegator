@@ -82,7 +82,7 @@ public class WebServiceIntegrationTest {
 		log.debug("{}", soapDelegatorService.executeRequest(request));
 		
 		((java.io.Closeable)soapDelegatorService).close();
-        //bus.shutdown(true);
+        bus.shutdown(true);
 	}
 
 	private void enableMTOM(SOAPDelegatorService soapDelegatorService) {
