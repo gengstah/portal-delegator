@@ -8,7 +8,7 @@ import com.cacib.eurc.delegator.ApplicationDelegator;
 import com.cacib.eurc.delegator.impl.ApplicationDelegatorImpl;
 
 @Configuration
-@ImportResource("classpath:cxf.xml")
+@ImportResource("classpath:server.xml")
 public class WebServiceConfig {
 	
 	@Bean

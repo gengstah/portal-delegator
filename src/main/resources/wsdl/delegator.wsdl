@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://soap.webservice.eurc.cacib.com/" 
+	xmlns:wsp="http://www.w3.org/ns/ws-policy"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsaws="http://www.w3.org/2005/08/addressing" 
+	xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+	xmlns:sp13="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200802"
+	name="SOAPDelegatorService" 
+	targetNamespace="http://soap.webservice.eurc.cacib.com/">
+	<wsdl:import location="logical.wsdl" namespace="http://soap.webservice.eurc.cacib.com/"></wsdl:import>
+	<wsdl:binding name="SOAPDelegatorServiceSoapBinding" type="tns:SOAPDelegatorService">
+		<wsp:PolicyReference URI="#DelegatorKerberosTransportPolicy"/>
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="execute">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="execute">
+				<soap:body use="literal" />
+				<wsp:PolicyReference URI="#DelegatorBinding_Execute_Input_Policy"/>
+			</wsdl:input>
+			<wsdl:output name="executeResponse">
+				<soap:body use="literal" />
+				<wsp:PolicyReference URI="#DelegatorBinding_Execute_Output_Policy"/>
+			</wsdl:output>
+			<wsdl:fault name="ApplicationDelegatorException">
+				<soap:fault name="ApplicationDelegatorException" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SOAPDelegatorService">
+		<wsdl:port binding="tns:SOAPDelegatorServiceSoapBinding"
+			name="SOAPDelegatorServicePort">
+			<soap:address location="https://localhost:8443/delegator/api/soap" />
+		</wsdl:port>
+	</wsdl:service>
+	<wsp:Policy wsu:Id="DelegatorKerberosTransportPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy/>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Lax/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic128/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:SupportingTokens>
+                    <wsp:Policy>
+                        <sp:KerberosToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/Once">
+                            <wsp:Policy>
+                                <sp:WssGssKerberosV5ApReqToken11/>
+                            </wsp:Policy>
+                        </sp:KerberosToken>
+                    </wsp:Policy>
+                </sp:SupportingTokens>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="DelegatorBinding_Execute_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="DelegatorBinding_Execute_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>

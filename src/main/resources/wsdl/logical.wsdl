@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:ns1="http://soap.webservice.eurc.cacib.com/"
+	name="SOAPDelegatorService" 
+	targetNamespace="http://soap.webservice.eurc.cacib.com/">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:tns="http://soap.webservice.eurc.cacib.com/"
+			attributeFormDefault="unqualified" elementFormDefault="unqualified"
+			targetNamespace="http://soap.webservice.eurc.cacib.com/">
+			<xs:import namespace="http://www.w3.org/2005/05/xmlmime" />
+			<xs:element name="DelegatorRequest" type="tns:delegatorRequest" />
+			<xs:element name="DelegatorResponse" type="tns:delegatorResponse" />
+			<xs:element name="execute" type="tns:execute" />
+			<xs:element name="executeResponse" type="tns:executeResponse" />
+			<xs:complexType name="execute">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="arg0" type="tns:delegatorRequest" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="delegatorRequest">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="applicationCode" type="xs:string" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="attachments" nillable="true" type="tns:attachment" />
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="fields"
+						nillable="true" type="tns:field" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="attachment">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="attachment" type="xs:base64Binary"
+						xmime:expectedContentTypes="application/octet-stream" />
+					<xs:element minOccurs="0" name="name" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="field">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="key" type="xs:string" />
+					<xs:element minOccurs="0" name="value" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="executeResponse">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="return" type="tns:delegatorResponse" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="delegatorResponse">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="applicationCode" type="xs:string" />
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="fields"
+						nillable="true" type="tns:field" />
+					<xs:element minOccurs="0" name="id" type="xs:string" />
+					<xs:element minOccurs="0" name="message" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="String" nillable="true" type="xs:string" />
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="ApplicationDelegatorException">
+		<wsdl:part element="ns1:String" name="ApplicationDelegatorException">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="executeResponse">
+		<wsdl:part element="ns1:executeResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="execute">
+		<wsdl:part element="ns1:execute" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="SOAPDelegatorService">
+		<wsdl:operation name="execute">
+			<wsdl:input message="ns1:execute" name="execute">
+			</wsdl:input>
+			<wsdl:output message="ns1:executeResponse" name="executeResponse">
+			</wsdl:output>
+			<wsdl:fault message="ns1:ApplicationDelegatorException"
+				name="ApplicationDelegatorException">
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:portType>
+</wsdl:definitions>

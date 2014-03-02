@@ -104,6 +104,11 @@
     	<version>${cxf.version}</version>
     </dependency>
     <dependency>
+    	<groupId>org.bouncycastle</groupId>
+    	<artifactId>bcprov-jdk16</artifactId>
+    	<version>1.45</version>
+    </dependency>
+    <dependency>
     	<groupId>org.apache.cxf</groupId>
     	<artifactId>cxf-rt-frontend-jaxws</artifactId>
     	<version>${cxf.version}</version>
@@ -162,11 +167,15 @@
 			<artifactId>tomcat7-maven-plugin</artifactId>
 			<version>2.2</version>
 			<configuration>
-				<url>http://127.0.0.1:8080/manager</url>
+				<url>https://127.0.0.1:8443/manager</url>
 				<server>TomcatServer</server>
 				<path>/delegator</path>
+				<httpsPort>8443</httpsPort>
+				<keystoreFile>${basedir}/src/main/resources/keystore.jks</keystoreFile>
+				<keystorePass>password</keystorePass>
 				<systemProperties>
 					<spring.profiles.active>development</spring.profiles.active>
+					<java.security.auth.login.config>src/main/resources/kerberos.jaas</java.security.auth.login.config>
 				</systemProperties>
 			</configuration>
 		</plugin>
