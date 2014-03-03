@@ -58,7 +58,7 @@ public class WebServiceIntegrationTest {
 		ctx.refresh();
 		
 		log.debug("Creating the web service clients");
-		//RESTDelegatorService restDelegatorService = ctx.getBean("restDelegatorClient", RESTDelegatorService.class);
+		RESTDelegatorService restDelegatorService = ctx.getBean("restDelegatorClient", RESTDelegatorService.class);
 		//SOAPDelegatorService soapDelegatorService = (SOAPDelegatorService) ctx.getBean("soapDelegatorClient");
 		
 		//URL wsdl = new URL("https://localhost:8443/delegator/api/soap?wsdl");
@@ -78,18 +78,19 @@ public class WebServiceIntegrationTest {
 		
 		DelegatorRequest request = createRequest();
 		
-		//log.debug("{}", restDelegatorService.executeRequest(request));
+		log.debug("{}", restDelegatorService.executeRequest(request));
 		log.debug("{}", soapDelegatorService.executeRequest(request));
 		
 		((java.io.Closeable)soapDelegatorService).close();
         bus.shutdown(true);
 	}
 
-	private void enableMTOM(SOAPDelegatorService soapDelegatorService) {
+	// Commented out since xml declaration is used
+	/*private void enableMTOM(SOAPDelegatorService soapDelegatorService) {
 		BindingProvider bp = (BindingProvider) soapDelegatorService;
 		SOAPBinding binding = (SOAPBinding) bp.getBinding();
 		binding.setMTOMEnabled(true);
-	}
+	}*/
 
 	private DelegatorRequest createRequest() {
 		

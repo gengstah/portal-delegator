@@ -23,6 +23,7 @@
             <cxf:logging/>
         </cxf:features>
     </cxf:bus>
+    
     <http:conduit name="https://localhost.*">
         <http:tlsClientParameters disableCNCheck="true">
             <sec:keyManagers keyPassword="password">
@@ -30,6 +31,7 @@
             </sec:keyManagers>
         </http:tlsClientParameters>
     </http:conduit>
+    
 	<jaxws:client name="{http://soap.webservice.eurc.cacib.com/}SOAPDelegatorServicePort" createdFromAPI="true">
         <jaxws:properties>
             <entry key="ws-security.kerberos.client">
