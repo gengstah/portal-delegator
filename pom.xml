@@ -177,7 +177,6 @@
 					<spring.profiles.active>development</spring.profiles.active>
 					<java.security.auth.login.config>src/main/resources/kerberos.jaas</java.security.auth.login.config>
 				</systemProperties>
-				<clientAuth>true</clientAuth>
 				<truststoreAlgorithm>RSA</truststoreAlgorithm>
 			</configuration>
 		</plugin>

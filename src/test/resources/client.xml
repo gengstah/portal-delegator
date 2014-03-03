@@ -30,11 +30,6 @@
             </sec:keyManagers>
         </http:tlsClientParameters>
     </http:conduit>
-    <!-- <jaxws:client id="soapDelegatorClient" 
-    			  serviceClass="com.cacib.eurc.webservice.soap.SOAPDelegatorService"
-    			  address="https://localhost:8443/delegator/api/soap"> -->
-    			  <!-- name="{http://soap.webservice.eurc.cacib.com/}SOAPDelegatorServicePort" -->
-    			  <!-- createdFromAPI="true"> -->
 	<jaxws:client name="{http://soap.webservice.eurc.cacib.com/}SOAPDelegatorServicePort" createdFromAPI="true">
         <jaxws:properties>
             <entry key="ws-security.kerberos.client">
